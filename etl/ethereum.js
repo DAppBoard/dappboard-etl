@@ -34,8 +34,9 @@ Provider.prototype.getBlock = async function(blockNumber) {
   for (let i = 0; i < block.transactions.length; i++) {
     var txReceipt = await this.w3.eth.getTransactionReceipt(block.transactions[i].hash);
     //TODO check empty receipt
-    Object.assign(block.transactions[i], txReceipt)
+    block.transactions[i] = Object.assign(block.transactions[i], txReceipt)
   }
+  console.log(block)
   return (block);
 }
 
