@@ -9,7 +9,7 @@ Writer.prototype.check_if_exists = function(type, id) {
 }
 
 Writer.prototype.insert = function(type, obj) {
-  console.log('insert', type, obj);
+//  console.log('insert', type, obj);
 }
 
 module.exports = Writer;

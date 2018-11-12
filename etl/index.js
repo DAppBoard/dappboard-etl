@@ -4,6 +4,8 @@ var Writer = require('./writers/psql');
 
 var processors_to_load = [
   'block',
+  'transaction',
+  'event',
 ]
 
 var processors = [];

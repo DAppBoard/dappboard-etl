@@ -1,7 +1,9 @@
 
-function BlockProcessor() {
+function BlockProcessor(writer) {
   this.name = "Block processor";
   this.version = 1;
+  this.writer = writer;
+  this.type = "blocks";
 }
 
 BlockProcessor.prototype.process = function(block) {
@@ -26,7 +28,7 @@ BlockProcessor.prototype.process = function(block) {
     transaction_count: block.transactions.length,
     transactions_root: block.transactionsRoot,
   }
-  console.log(obj)
+  this.writer.insert(this.type, obj);
 }
 
 module.exports = BlockProcessor;

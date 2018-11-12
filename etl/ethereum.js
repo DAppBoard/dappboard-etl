@@ -7,7 +7,7 @@
 
 var Web3 = require('web3');
 
-enum_providerType = {WS: 1, HTTP: 2};
+enum_providerType = {WS: 1, HTTP: 2, S3: 3};
 
 function Provider(providerType, providerAddress) {
   this.providerAddress = providerAddress;
