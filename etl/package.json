@@ -1,0 +1,16 @@
+{
+  "name": "dappboard-ethereum-etl",
+  "version": "1.0.0",
+  "description": "An ETL for the Ethereum blockchain, scrapps blocks, protocols and some apps.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ethereum",
+    "etl",
+    "dappboard"
+  ],
+  "author": "Jules Dourlens",
+  "license": "MIT"
+}
