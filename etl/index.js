@@ -6,6 +6,7 @@ var processors_to_load = [
   'block',
   'transaction',
   'event',
+  'token_ERC20',
 ]
 
 var processors = [];
