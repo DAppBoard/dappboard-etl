@@ -9,25 +9,25 @@ function BlockProcessor(writer) {
 BlockProcessor.prototype.process = function(provider, block) {
   var obj = {
     difficulty: block.difficulty,
-    extra_data: block.extraData,
+    extra_data: provider.normalizeHash(block.extraData),
     gas_limit: block.gasLimit,
     gas_used: block.gasUsed,
     hash: provider.normalizeHash(block.hash),
-    logs_bloom: block.logsBloom,
+    logs_bloom: provider.normalizeHash(block.logsBloom),
     miner: provider.normalizeHash(block.miner),
-    mix_hash: block.mixHash,
-    nonce: block.nonce,
+    mix_hash: provider.normalizeHash(block.mixHash),
+    nonce: provider.normalizeHash(block.nonce),
     number: block.number,
     parent_hash: provider.normalizeHash(block.parentHash),
-    receipts_root: block.receiptsRoot,
-    sha3_uncles: block.sha3Uncles,
+    receipts_root: provider.normalizeHash(block.receiptsRoot),
+    sha3_uncles: provider.normalizeHash(block.sha3Uncles),
     size: block.size,
-    state_root: block.stateRoot,
+    state_root: provider.normalizeHash(block.stateRoot),
     timestamp: block.timestamp,
     total_difficulty: block.totalDifficulty,
     transaction_count: block.transactions.length,
-    transactions_root: block.transactionsRoot,
-  }
+    transactions_root: provider.normalizeHash(block.transactionsRoot),
+  };
   this.writer.insert(this.type, obj);
 }
 

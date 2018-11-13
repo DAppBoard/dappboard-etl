@@ -14,12 +14,12 @@ EventProcessor.prototype.process = function(provider, block) {
         var obj = {
           block_hash: provider.normalizeHash(ev.blockHash),
           blockNumber: ev.blockNumber,
-          data: ev.data,
+          data: provider.normalizeHash(ev.data),
           log_index: ev.logIndex,
-          topic_0: ev.topics[0].toLowerCase(),
-          topic_1: ev.topics.length > 1 ? ev.topics[1].toLowerCase() : null,
-          topic_2: ev.topics.length > 2 ? ev.topics[2].toLowerCase() : null,
-          topic_3: ev.topics.length > 3 ? ev.topics[3].toLowerCase() : null,
+          topic_0: provider.normalizeHash(ev.topics[0]),
+          topic_1: ev.topics.length > 1 ? provider.normalizeHash(ev.topics[1]) : null,
+          topic_2: ev.topics.length > 2 ? provider.normalizeHash(ev.topics[2]) : null,
+          topic_3: ev.topics.length > 3 ? provider.normalizeHash(ev.topics[3]) : null,
           transaction_hash: provider.normalizeHash(ev.transactionHash),
           transactionIndex: ev.transactionIndex
         };

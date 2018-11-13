@@ -17,11 +17,11 @@ TokenProcessor.prototype.process = function(provider, block) {
             token_address: provider.normalizeHash(ev.address),
             from_address: provider.logTopicToAddress(ev.topics[1]),
             to_address: provider.logTopicToAddress(ev.topics[2]),
-            value: provider.w3.utils.hexToNumberString(ev.data), // TODO decode the data to get the amount
+            value: provider.w3.utils.hexToNumberString(ev.data),
             transaction_hash: provider.normalizeHash(ev.transactionHash),
             log_index: ev.logIndex,
             block_number: ev.blockNumber,
-          }
+          };
           console.log(obj);
           this.writer.insert(this.type, obj);
         }
