@@ -5,7 +5,7 @@ function TokenProcessor(writer) {
   this.type = "events";
 }
 
-TokenProcessor.prototype.process = function(block) {
+TokenProcessor.prototype.process = function(provider, block) {
   for (let i = 0; i < block.transactions.length; i++) {
     var tx = block.transactions[i];
     if (tx.logs != null) {
@@ -14,15 +14,16 @@ TokenProcessor.prototype.process = function(block) {
         // We check if the event is an ERC20 token transfer
         if (ev.topics[0].toLowerCase() == '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef' && ev.topics.length == 3) {
           var obj = {
-            token_address: ev.address.toLowerCase(),
-            from_address: ev.topics[1].toLowerCase(),
-            to_address: ev.topics[2].toLowerCase(),
-            value: "data", // TODO decode the data to get the amount
-            transaction_hash: ev.transactionHash.toLowerCase(),
+            token_address: provider.normalizeHash(ev.address),
+            from_address: provider.logTopicToAddress(ev.topics[1]),
+            to_address: provider.logTopicToAddress(ev.topics[2]),
+            value: provider.w3.utils.hexToNumberString(ev.data), // TODO decode the data to get the amount
+            transaction_hash: provider.normalizeHash(ev.transactionHash),
             log_index: ev.logIndex,
             block_number: ev.blockNumber,
           }
-          console.log(obj.token_address);
+          console.log(obj);
+          this.writer.insert(this.type, obj);
         }
       }
     }

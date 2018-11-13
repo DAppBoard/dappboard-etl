@@ -6,16 +6,16 @@ function TransactionProcessor(writer) {
   this.type = "transactions";
 }
 
-TransactionProcessor.prototype.process = function(block) {
+TransactionProcessor.prototype.process = function(provider, block) {
   for (let i = 0; i < block.transactions.length; i++) {
     var tx = block.transactions[i];
     var obj = {
-      block_hash: tx.blockHash,
+      block_hash: provider.normalizeHash(tx.blockHash),
       blockNumber: tx.blockNumber,
-      from: tx.from,
+      from: provider.normalizeHash(tx.from),
       gas: tx.gas,
       gasPrice: tx.gasPrice,
-      hash: tx.hash,
+      hash: provider.normalizeHash(tx.hash),
       input: tx.input,
       nonce: tx.nonce,
       r: tx.r,

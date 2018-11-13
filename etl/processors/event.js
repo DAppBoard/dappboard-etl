@@ -5,14 +5,14 @@ function EventProcessor(writer) {
   this.type = "events";
 }
 
-EventProcessor.prototype.process = function(block) {
+EventProcessor.prototype.process = function(provider, block) {
   for (let i = 0; i < block.transactions.length; i++) {
     var tx = block.transactions[i];
     if (tx.logs != null) {
       for (var j = 0; j < tx.logs.length; j++) {
         var ev = tx.logs[j];
         var obj = {
-          block_hash: ev.blockHash.toLowerCase(),
+          block_hash: provider.normalizeHash(ev.blockHash),
           blockNumber: ev.blockNumber,
           data: ev.data,
           log_index: ev.logIndex,
@@ -20,7 +20,7 @@ EventProcessor.prototype.process = function(block) {
           topic_1: ev.topics.length > 1 ? ev.topics[1].toLowerCase() : null,
           topic_2: ev.topics.length > 2 ? ev.topics[2].toLowerCase() : null,
           topic_3: ev.topics.length > 3 ? ev.topics[3].toLowerCase() : null,
-          transaction_hash: ev.transactionHash.toLowerCase(),
+          transaction_hash: provider.normalizeHash(ev.transactionHash),
           transactionIndex: ev.transactionIndex
         };
         this.writer.insert(this.type, obj);

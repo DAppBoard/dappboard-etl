@@ -6,19 +6,19 @@ function BlockProcessor(writer) {
   this.type = "blocks";
 }
 
-BlockProcessor.prototype.process = function(block) {
+BlockProcessor.prototype.process = function(provider, block) {
   var obj = {
     difficulty: block.difficulty,
     extra_data: block.extraData,
     gas_limit: block.gasLimit,
     gas_used: block.gasUsed,
-    hash: block.hash,
+    hash: provider.normalizeHash(block.hash),
     logs_bloom: block.logsBloom,
-    miner: block.miner,
+    miner: provider.normalizeHash(block.miner),
     mix_hash: block.mixHash,
     nonce: block.nonce,
     number: block.number,
-    parent_hash: block.parentHash,
+    parent_hash: provider.normalizeHash(block.parentHash),
     receipts_root: block.receiptsRoot,
     sha3_uncles: block.sha3Uncles,
     size: block.size,

@@ -36,8 +36,21 @@ Provider.prototype.getBlock = async function(blockNumber) {
     //TODO check empty receipt
     block.transactions[i] = Object.assign(block.transactions[i], txReceipt)
   }
-  console.log(block)
   return (block);
+}
+
+Provider.prototype.logTopicToAddress = function(logTopic) {
+  if (logTopic != null && logTopic.length == 66) {
+    return (logTopic.substring(26).toLowerCase());
+  }
+  return (null);
+}
+
+Provider.prototype.normalizeHash = function(hash) {
+  if (hash != null && hash.startsWith("0x")) {
+    return (hash.slice(2).toLowerCase());
+  }
+  return (null);
 }
 
 module.exports.Provider = Provider;

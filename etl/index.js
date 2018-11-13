@@ -25,7 +25,7 @@ var eth = new Ethereum.Provider(Ethereum.ProviderType.WS, 'wss://mainnet.infura.
 var doBlock = async function(blocknumber) {
   block = await eth.getBlock(blocknumber);
   for (let i = 0; i < processors.length; i++) {
-    processors[i].process(block);
+    processors[i].process(eth, block);
   }
 }
 
