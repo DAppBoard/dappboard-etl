@@ -46,6 +46,10 @@ Provider.prototype.logTopicToAddress = function(logTopic) {
   return (null);
 }
 
+Provider.prototype.logDataToAddress = function(logData, position) {
+  return (this.normalizeHash(logData).substring(64 * position, (64 * position) + 64));
+}
+
 Provider.prototype.normalizeHash = function(hash) {
   if (hash != null && hash.startsWith("0x")) {
     return (hash.slice(2).toLowerCase());

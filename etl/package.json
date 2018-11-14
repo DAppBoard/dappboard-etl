@@ -12,5 +12,9 @@
     "dappboard"
   ],
   "author": "Jules Dourlens",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^7.6.1",
+    "web3": "^1.0.0-beta.36"
+  }
 }

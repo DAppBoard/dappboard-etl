@@ -4,9 +4,9 @@ var Writer = require('./writers/psql');
 
 var processors_to_load = [
   'block',
-  'transaction',
-  'event',
-  'token_ERC20',
+  // 'transaction',
+  // 'event',
+  // 'token',
 ]
 
 var processors = [];
@@ -19,8 +19,7 @@ for (let i = 0; i < processors_to_load.length; i++) {
   processors.push(new p(writer));
 }
 
-//console.log(processors);
-var eth = new Ethereum.Provider(Ethereum.ProviderType.WS, 'wss://mainnet.infura.io/ws/e4c0c4882ae6458cbd076a23747d4ca7/');
+var eth = new Ethereum.Provider(Ethereum.ProviderType.WS, process.env.DAPPBOARD_NODE_URL);
 
 var doBlock = async function(blocknumber) {
   block = await eth.getBlock(blocknumber);
