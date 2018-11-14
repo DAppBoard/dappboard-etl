@@ -2,10 +2,11 @@ function TokenProcessor(writer) {
   this.name = "Token processor";
   this.version = 1;
   this.writer = writer;
-  this.type = "tokens";
+  this.type = "token_transfers";
 }
 
 TokenProcessor.prototype.process = function(provider, block) {
+
   for (let i = 0; i < block.transactions.length; i++) {
     var tx = block.transactions[i];
     if (tx.logs != null) {
@@ -31,11 +32,10 @@ TokenProcessor.prototype.process = function(provider, block) {
             obj.to_address = provider.logDataToAddress(ev.data, dataRead++);
           }
           if (ev.topics.length > 3) {
-            obj.value = provider.w3.hexToNumber(provider.logTopicToAddress(ev.topics[3]));
+            obj.value = provider.w3.utils.hexToNumberString(provider.logTopicToAddress(ev.topics[3]));
           } else {
-            obj.value = provider.w3.hexToNumber(provider.logDataToAddress(ev.data, dataRead++));
+            obj.value = provider.w3.utils.hexToNumberString(provider.logDataToAddress(ev.data, dataRead++));
           }
-          console.log(obj)
           this.writer.insert(this.type, obj);
         }
       }

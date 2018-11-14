@@ -1,13 +1,17 @@
 /*
-**
-**
-*/
+ **
+ **
+ */
 
 // wss://mainnet.infura.io/ws/e4c0c4882ae6458cbd076a23747d4ca7/
 
 var Web3 = require('web3');
 
-enum_providerType = {WS: 1, HTTP: 2, S3: 3};
+enum_providerType = {
+  WS: 1,
+  HTTP: 2,
+  S3: 3
+};
 
 function Provider(providerType, providerAddress) {
   this.providerAddress = providerAddress;
@@ -20,14 +24,14 @@ function Provider(providerType, providerAddress) {
   if (this.providerType == enum_providerType.WS) {
     this.w3 = new Web3(new Web3.providers.WebsocketProvider('wss://mainnet.infura.io/ws/d70ece33c9754843b5181a4c07f49a4f/'));
   } else {
-  // TODO check other provider types
-  //  this.w3 = new Web3(new Web3.providers.WebsocketProvider('wss://mainnet.infura.io/ws/d70ece33c9754843b5181a4c07f49a4f/'));
+    // TODO check other provider types
+    //  this.w3 = new Web3(new Web3.providers.WebsocketProvider('wss://mainnet.infura.io/ws/d70ece33c9754843b5181a4c07f49a4f/'));
   }
 }
 
 /*
-** Returns a block with all the transactions and their receipts
-*/
+ ** Returns a block with all the transactions and their receipts
+ */
 Provider.prototype.getBlock = async function(blockNumber) {
   var block = await this.w3.eth.getBlock(blockNumber, true);
   // TODO check if null
@@ -41,13 +45,21 @@ Provider.prototype.getBlock = async function(blockNumber) {
 
 Provider.prototype.logTopicToAddress = function(logTopic) {
   if (logTopic != null && logTopic.length == 66) {
-    return (logTopic.substring(26).toLowerCase());
+    var res = (logTopic.substring(26).toLowerCase());
+    if (res == '0000000000000000000000000000000000000000') {
+      return (null);
+    }
+    return (res);
   }
   return (null);
 }
 
 Provider.prototype.logDataToAddress = function(logData, position) {
-  return (this.normalizeHash(logData).substring(64 * position, (64 * position) + 64));
+  var res = (this.normalizeHash(logData).substring((64 * position) + 24, (64 * position) + 64));
+  if (res == '0000000000000000000000000000000000000000') {
+    return (null);
+  }
+  return (res);
 }
 
 Provider.prototype.normalizeHash = function(hash) {
