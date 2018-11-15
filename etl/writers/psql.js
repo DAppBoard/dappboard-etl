@@ -2,6 +2,7 @@ pg = require('pg')
 var knex = require('knex')({client: 'pg'});
 
 function Writer(connectInfos) {
+  connectInfos.max = 3;
   this.pool = new pg.Pool(connectInfos)
   this.knex = knex;
   console.log('init writer')

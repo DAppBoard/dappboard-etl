@@ -11,22 +11,20 @@ TransactionProcessor.prototype.process = function(provider, block) {
     var tx = block.transactions[i];
     var obj = {
       block_hash: provider.normalizeHash(tx.blockHash),
-      blockNumber: tx.blockNumber,
-      from: provider.normalizeHash(tx.from),
+      block_number: tx.blockNumber,
+      from_address: provider.normalizeHash(tx.from),
+      to_address: provider.normalizeHash(tx.to),
       gas: tx.gas,
-      gasPrice: tx.gasPrice,
+      gas_price: tx.gasPrice,
       hash: provider.normalizeHash(tx.hash),
       input: tx.input,
       nonce: tx.nonce,
-      r: tx.r,
-      s: tx.s,
-      to: tx.to,
       transaction_index: tx.transactionIndex,
-      v: tx.v,
       value: tx.value,
       cumulative_gas_used: tx.cumulativeGasUsed,
+      contract_address: tx.contractAddress,
       gas_used: tx.gasUsed,
-      logs_bloom: tx.logsBloom,
+      root: tx.root,
       status: tx.status
     };
     this.writer.insert(this.type, obj);

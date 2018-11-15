@@ -1,20 +1,20 @@
 CREATE TABLE IF NOT EXISTS transactions (
-    hash STRING,
-    nonce BIGINT,
-    block_hash STRING,
+    block_hash TEXT,
     block_number BIGINT,
-    transaction_index BIGINT,
-    from_address STRING,
-    to_address STRING,
-    value DECIMAL(38,0),
+    from_address TEXT,
+    to_address TEXT,
     gas BIGINT,
     gas_price BIGINT,
-    input STRING,
+    hash TEXT,
+    input TEXT,
+    nonce BIGINT,
     transaction_index BIGINT,
+    value DECIMAL(38,0),
     /* Receipt */
     cumulative_gas_used BIGINT,
     gas_used BIGINT,
-    contract_address STRING,
-    root STRING,
-    status BIGINT
+    contract_address TEXT,
+    root TEXT,
+    status BIGINT,
+    CONSTRAINT unique_transaction UNIQUE(hash)
 )

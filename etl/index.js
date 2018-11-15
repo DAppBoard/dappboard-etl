@@ -3,10 +3,10 @@ var Ethereum = require ('./ethereum');
 var Writer = require('./writers/psql');
 
 var processors_to_load = [
-  'block',
-  // 'transaction',
-  // 'event',
- 'token',
+//  'block',
+   'transaction',
+ //'event',
+// 'token',
 ]
 
 var processors = [];

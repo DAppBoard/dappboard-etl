@@ -17,5 +17,6 @@ CREATE TABLE IF NOT EXISTS blocks (
     timestamp BIGINT,
     total_difficulty DECIMAL(38,0),
     transaction_count BIGINT,
-    transactions_root TEXT
+    transactions_root TEXT,
+    CONSTRAINT unique_block UNIQUE(number)
 )

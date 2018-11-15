@@ -13,7 +13,7 @@ EventProcessor.prototype.process = function(provider, block) {
         var ev = tx.logs[j];
         var obj = {
           block_hash: provider.normalizeHash(ev.blockHash),
-          blockNumber: ev.blockNumber,
+          block_number: ev.blockNumber,
           data: provider.normalizeHash(ev.data),
           log_index: ev.logIndex,
           topic_0: provider.normalizeHash(ev.topics[0]),
@@ -21,7 +21,8 @@ EventProcessor.prototype.process = function(provider, block) {
           topic_2: ev.topics.length > 2 ? provider.normalizeHash(ev.topics[2]) : null,
           topic_3: ev.topics.length > 3 ? provider.normalizeHash(ev.topics[3]) : null,
           transaction_hash: provider.normalizeHash(ev.transactionHash),
-          transactionIndex: ev.transactionIndex
+          transaction_index: ev.transactionIndex,
+          address: ev.address,
         };
         this.writer.insert(this.type, obj);
       }

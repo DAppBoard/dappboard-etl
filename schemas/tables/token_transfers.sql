@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS token_transfers (
     value DECIMAL(38,0),
     transaction_hash TEXT,
     log_index BIGINT,
-    block_number BIGINT
+    block_number BIGINT,
+    CONSTRAINT unique_token_transfer UNIQUE(transaction_hash, log_index)
 )
