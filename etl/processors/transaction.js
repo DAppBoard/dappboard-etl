@@ -17,14 +17,13 @@ TransactionProcessor.prototype.process = function(provider, block) {
       gas: tx.gas,
       gas_price: tx.gasPrice,
       hash: provider.normalizeHash(tx.hash),
-      input: tx.input,
+      input: provider.normalizeHash(tx.input),
       nonce: tx.nonce,
       transaction_index: tx.transactionIndex,
       value: tx.value,
       cumulative_gas_used: tx.cumulativeGasUsed,
       contract_address: tx.contractAddress,
       gas_used: tx.gasUsed,
-      root: tx.root,
       status: tx.status
     };
     this.writer.insert(this.type, obj);

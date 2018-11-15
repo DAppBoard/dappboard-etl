@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS transactions (
     cumulative_gas_used BIGINT,
     gas_used BIGINT,
     contract_address TEXT,
-    root TEXT,
-    status BIGINT,
+    status BOOLEAN,
     CONSTRAINT unique_transaction UNIQUE(hash)
 )
