@@ -16,6 +16,7 @@ TransactionProcessor.prototype.process = function(provider, block) {
       to_address: provider.normalizeHash(tx.to),
       gas: tx.gas,
       gas_price: tx.gasPrice,
+      func_sig: provider.getFuncSig(tx.input),
       hash: provider.normalizeHash(tx.hash),
       input: provider.normalizeHash(tx.input),
       nonce: tx.nonce,

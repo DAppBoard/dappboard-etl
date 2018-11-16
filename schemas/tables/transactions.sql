@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     gas_price BIGINT,
     hash TEXT,
     input TEXT,
+    func_sig TEXT,
     nonce BIGINT,
     transaction_index BIGINT,
     value DECIMAL(38,0),

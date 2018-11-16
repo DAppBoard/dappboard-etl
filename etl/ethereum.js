@@ -60,9 +60,25 @@ Provider.prototype.logDataToAddress = function(logData, position) {
   return (res);
 }
 
+Provider.prototype.getFuncSig(data) {
+  var data = this.normalizeHash(data);
+  if (data != null) {
+    return (data.substring(0,8));
+  } else {
+    return(null);
+  }
+}
+
 Provider.prototype.normalizeHash = function(hash) {
   if (hash != null && hash.startsWith("0x")) {
-    return (hash.slice(2).toLowerCase());
+    var res = hash.slice(2).toLowerCase());
+    if (res.length == 0) {
+      return (null);
+    }
+    return (res);
+  }
+  if (hash != null && hash.length > 0) {
+    return (hash);
   }
   return (null);
 }
