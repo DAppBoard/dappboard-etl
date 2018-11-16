@@ -1,12 +1,11 @@
-
-var Ethereum = require ('./ethereum');
+var Ethereum = require('./ethereum');
 var Writer = require('./writers/psql');
 
 var processors_to_load = [
-//  'block',
-   'transaction',
- //'event',
-// 'token',
+  'block',
+  'transaction',
+  'event',
+  'token',
 ]
 
 var processors = [];
@@ -19,23 +18,38 @@ writer = new Writer({
   port: 5432,
 });
 
+
+//console.log(process.env.DAPPBOARD_NODE_URL)
+var eth = new Ethereum.Provider(Ethereum.ProviderType.WS, process.env.DAPPBOARD_NODE_URL);
+
+
+var liveRun = async function() {
+  var liveBlock = await eth.getLatestBlock();
+  var dbBlock = await writer.getMax('blocks', 'number');
+  if (liveBlock > dbBlock) {
+    var missedBlocks = liveBlock - dbBlock;
+    console.log("Live mode has to catch up with: ", missedBlocks)
+    await doBlock(dbBlock + 1);
+  }
+  liveRun()
+}
+
+liveRun()
+
+
 for (let i = 0; i < processors_to_load.length; i++) {
   var p = require('./processors/' + processors_to_load[i]);
   // TODO check if processor is loaded successfully
   processors.push(new p(writer));
 }
 
-//console.log(process.env.DAPPBOARD_NODE_URL)
-var eth = new Ethereum.Provider(Ethereum.ProviderType.WS, process.env.DAPPBOARD_NODE_URL);
-
 var doBlock = async function(blocknumber) {
+  console.log('Getting infos for block', blocknumber)
   block = await eth.getBlock(blocknumber);
   for (let i = 0; i < processors.length; i++) {
     processors[i].process(eth, block);
   }
 }
 
-doBlock(6702206)
-doBlock(6702207)
-doBlock(6702208)
+
 //console.log(eth)

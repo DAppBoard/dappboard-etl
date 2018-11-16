@@ -13,11 +13,6 @@ Writer.prototype.client = async function() {
   return client;
 }
 
-Writer.prototype.check_if_exists = function(type, id) {
-  console.log('check if exists', type, id);
-  return (false);
-}
-
 Writer.prototype.insert = async function(type, obj) {
   //  console.log('insert', type, obj);
   var c = await this.client()
@@ -26,6 +21,20 @@ Writer.prototype.insert = async function(type, obj) {
     console.log(err, res)
     c.release()
   })
+}
+
+Writer.prototype.getMax = async function(type, field) {
+  var c = await this.client()
+  var query = this.knex.max(field).from(type).toString()
+  console.log(query)
+  var res = await c.query(query)
+  c.release();
+  if (res != null && res.rows[0] != null) {
+    return (parseInt(res.rows[0].max));
+  }
+  else {
+    return (null);
+  }
 }
 
 module.exports = Writer;
