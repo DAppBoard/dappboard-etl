@@ -15,7 +15,8 @@ writer = new Writer({
   host: process.env.DAPPBOARD_PSQL_HOST,
   database: process.env.DAPPBOARD_PSQL_DB,
   password: process.env.DAPPBOARD_PSQL_PASSWORD,
-  port: 5432,
+  port: 25060,
+  ssl: true,
 });
 
 
@@ -29,9 +30,10 @@ var liveRun = async function() {
   if (liveBlock > dbBlock) {
     var missedBlocks = liveBlock - dbBlock;
     console.log("Live mode has to catch up with: ", missedBlocks)
-    await doBlock(dbBlock + 1);
+    doBlock(dbBlock + 1, function() {
+      liveRun()
+    });
   }
-  liveRun()
 }
 
 liveRun()
@@ -43,12 +45,16 @@ for (let i = 0; i < processors_to_load.length; i++) {
   processors.push(new p(writer));
 }
 
-var doBlock = async function(blocknumber) {
+var doBlock = async function(blocknumber, cb) {
   console.log('Getting infos for block', blocknumber)
-  block = await eth.getBlock(blocknumber);
-  for (let i = 0; i < processors.length; i++) {
-    processors[i].process(eth, block);
-  }
+  eth.getBlock(blocknumber, function(block) {
+    console.log('got block')
+    for (let i = 0; i < processors.length; i++) {
+      processors[i].process(eth, block);
+    }
+    console.log('applied writers')
+    cb();
+  });
 }
 
 
