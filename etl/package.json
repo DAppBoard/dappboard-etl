@@ -14,6 +14,7 @@
   "author": "Jules Dourlens",
   "license": "MIT",
   "dependencies": {
+    "abi-decode-functions": "^0.1.3",
     "knex": "^0.15.2",
     "pg": "^7.6.1",
     "web3": "^1.0.0-beta.36"

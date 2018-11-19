@@ -1,6 +1,9 @@
-CREATE TABLE IF NOT EXISTS meta_tokens (
-    address STRING,
-    name STRING,
-    symbol STRING,
-    decimals DECIMAL(38,0)
+CREATE TABLE IF NOT EXISTS tokens (
+    address TEXT,
+    name TEXT,
+    symbol TEXT,
+    decimals BIGINT,
+    is_erc20 BOOL,
+    is_erc721 BOOL,
+    CONSTRAINT unique_token UNIQUE(address)
 )
