@@ -1,6 +1,6 @@
 /*
  ** This tool tries to get as much as possible info from a token address
- */
+*/
 
 const AbiFunctions = require('abi-decode-functions')
 
@@ -64,30 +64,34 @@ TokenScrapper.prototype.scrape = async function(address) {
   } catch (err) {
   }
   try {
-    await contract.methods.symbol().call();
+    symbol = await contract.methods.symbol().call();
   } catch (err) {
   }
-
-
-  var isERC20 = await contract.methods.symbol().call()
 
   var bytecode = await this.provider.w3.eth.getCode(address);
   const decoder = new AbiFunctions.default(bytecode)
   const functionIds = decoder.getFunctionIds();
-  isERC20 = (this.arrayContainsFunction(functionIds, 'totalSupply()') &&
+  var isERC20 = (this.arrayContainsFunction(functionIds, 'totalSupply()') &&
     this.arrayContainsFunction(functionIds, 'balanceOf(address)') &&
     this.arrayContainsFunction(functionIds, 'transfer(address,uint256)') &&
     this.arrayContainsFunction(functionIds, 'transferFrom(address,address,uint256)') &&
     this.arrayContainsFunction(functionIds, 'approve(address,uint256)') &&
     this.arrayContainsFunction(functionIds, 'allowance(address,address)'));
-  isERC721 = (this.arrayContainsFunction(functionIds, 'balanceOf(address)') &&
+  var isERC721 = (this.arrayContainsFunction(functionIds, 'balanceOf(address)') &&
     this.arrayContainsFunction(functionIds, 'ownerOf(uint256)') &&
     (this.arrayContainsFunction(functionIds, 'transfer(address,uint256)') || this.arrayContainsFunction(functionIds, 'transferFrom(address,address,uint256)')) &&
     this.arrayContainsFunction(functionIds, 'approve(address,uint256)'));
 
-  console.log(isERC20, isERC721)
-
-
+  var token = {
+    name: name,
+    decimals: decimals,
+    symbol: symbol,
+    is_erc20: isERC20,
+    is_erc721: isERC721,
+    address: address,
+  }
+  console.log(token)
+  this.database.insert('tokens', token);
 }
 
 module.exports = TokenScrapper;

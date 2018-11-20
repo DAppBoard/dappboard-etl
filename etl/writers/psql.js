@@ -18,7 +18,7 @@ Writer.prototype.insert = async function(type, obj) {
   var c = await this.client()
   var query = this.knex(type).insert(obj).toString()
   c.query(query, (err, res) => {
-    //console.log(err, res)
+    console.log(err, res)
     c.release()
   })
 }
@@ -35,6 +35,13 @@ Writer.prototype.getMax = async function(type, field) {
   else {
     return (null);
   }
+}
+
+Writer.prototype.executeAsync = async function(query) {
+  var c = await this.client();
+  var res = await c.query(query)
+  c.release;
+  return (res.rows);
 }
 
 module.exports = Writer;

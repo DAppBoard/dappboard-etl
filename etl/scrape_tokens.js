@@ -12,11 +12,20 @@ writer = new Writer({
 });
 
 var eth = new Ethereum.Provider(Ethereum.ProviderType.WS, process.env.DAPPBOARD_NODE_URL);
-
 var scraper = new TokenScrapper(eth, writer);
 
+var scrapMissingTokens = async function(eth, writer)  {
+  // We query all token addresses that are not in the token table
+  var query = `
+  SELECT token_transfers.token_address FROM token_transfers WHERE token_address NOT IN (
+      SELECT tokens.address from tokens GROUP BY tokens.address
+  ) GROUP BY token_transfers.token_address ;
+  `;
+  var missingContracts = await writer.executeAsync(query);
+  for (var i = 0; i < missingContracts.length; i++) {
+    var contract = missingContracts[i].token_address;
+    scraper.scrape(contract)
+  }
+}
 
-
-scraper.scrape("0x5d4abc77b8405ad177d8ac6682d584ecbfd46cec")
-scraper.scrape("0x06012c8cf97bead5deae237070f9587f8e7a266d")
-scraper.scrape("0x6EbeAf8e8E946F0716E6533A6f2cefc83f60e8Ab")
+scrapMissingTokens(eth, writer);

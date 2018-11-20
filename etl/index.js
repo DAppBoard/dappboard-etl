@@ -36,9 +36,6 @@ var liveRun = async function() {
   }
 }
 
-liveRun()
-
-
 for (let i = 0; i < processors_to_load.length; i++) {
   var p = require('./processors/' + processors_to_load[i]);
   // TODO check if processor is loaded successfully
@@ -57,5 +54,4 @@ var doBlock = async function(blocknumber, cb) {
   });
 }
 
-
-//console.log(eth)
+liveRun()
