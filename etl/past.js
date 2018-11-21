@@ -19,34 +19,27 @@ writer = new Writer({
   ssl: true,
 });
 
-var firstRun = true;
+var runs = 0;
 
 //console.log(process.env.DAPPBOARD_NODE_URL)
 var eth = new Ethereum.Provider(Ethereum.ProviderType.WS, process.env.DAPPBOARD_NODE_URL);
 
 
-var liveRun = async function() {
-  var liveBlock = await eth.getLatestBlock() - 10;
-  var dbBlock = await writer.getMax('blocks', 'number');
+var pastRun = async function() {
+  var dbBlock = await writer.getMin('blocks', 'number');
   if (dbBlock == null || isNaN(dbBlock)) {
     console.log('We dont have any block')
     dbBlock = liveBlock - 100;
   }
-  if (firstRun) {
+  if (runs < 5) {
     console.log('This is the first run')
-    dbBlock -= 10;
-    firstRun = false;
+    dbBlock +=  runs - 5;
+    runs++;
   }
-  dbBlock++;
-  if (liveBlock > dbBlock) {
-    var missedBlocks = liveBlock - dbBlock;
-    console.log("Live mode has to catch up with: ", missedBlocks)
-    doBlock(dbBlock, function() {
-      liveRun();
-    });
-  } else {
-    setTimeout(liveRun, 1000)
-  }
+  dbBlock--;
+  doBlock(dbBlock, function() {
+    pastRun();
+  });
 }
 
 for (let i = 0; i < processors_to_load.length; i++) {
@@ -67,6 +60,4 @@ var doBlock = async function(blocknumber, cb) {
   });
 }
 
-
-
-liveRun()
+pastRun()

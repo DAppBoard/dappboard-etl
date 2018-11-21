@@ -28,6 +28,11 @@ function Provider(providerType, providerAddress) {
   }
 }
 
+var receivedTX = 0;
+function wrapcb() {
+
+}
+
 /*
  ** Returns a block with all the transactions and their receipts
  */
@@ -35,13 +40,17 @@ Provider.prototype.getBlock = async function(blockNumber, cb) {
   var block = await this.w3.eth.getBlock(blockNumber, true);
   // TODO check if null
 
-  let receivedTX = block.transactions.length;
+  receivedTX = block.transactions.length;
   if (block.transactions.length == 0) {
     cb (block);
   }
   for (let i = 0; i < block.transactions.length; i++) {
-    var txReceipt = this.w3.eth.getTransactionReceipt(block.transactions[i].hash, function (err, txReceipt) {
-      block.transactions[txReceipt.transactionIndex] = Object.assign(block.transactions[txReceipt.transactionIndex], txReceipt)
+    this.w3.eth.getTransactionReceipt(block.transactions[i].hash, function (err, txReceipt) {
+      if (txReceipt != null) {
+        block.transactions[txReceipt.transactionIndex] = Object.assign(block.transactions[txReceipt.transactionIndex], txReceipt)
+      } else {
+        console.log('EMPTY RECEIPT')
+      }
       receivedTX--;
       if (receivedTX == 0) {
         cb(block);
