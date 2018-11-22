@@ -2,10 +2,11 @@ const rp = require('request-promise');
 const cheerio = require('cheerio');
 
 const verifiedContractListURL = 'https://etherscan.io/contractsVerified/';
-
+const getJsonABIURL = "https://api.etherscan.io/api?module=contract&action=getabi&address="
 async function  getABIFromEtherscan(address) {
-  var getResult = await rp(url)
-
+  console.log(getJsonABIURL + address)
+//  var getResult = await rp(getJsonABIURL + address)
+  //console.log(getResult)
   return (address)
 }
 
