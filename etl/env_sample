@@ -5,3 +5,6 @@ export DAPPBOARD_PSQL_USER=""
 export DAPPBOARD_PSQL_PASSWORD=""
 
 export DAPPBOARD_NODE_URL=""
+
+#Only necessary for scripts that are fetching data from Etherscan (ABI/Sourcecode)
+export DAPPBOARD_ETHERSCAN_API=""
