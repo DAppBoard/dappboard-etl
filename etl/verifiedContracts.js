@@ -42,6 +42,7 @@ async function scrapeVerifiedContracts() {
     abi = JSON.parse(await getABIFromEtherscan($(tag).text()));
     for (abiElem of abi) {
       if (abiElem.type == "event") {
+        console.log(abiElem)
         var topic_0 = eth.w3.eth.abi.encodeEventSignature(abiElem);
         var event = {
           topic: topic_0,
