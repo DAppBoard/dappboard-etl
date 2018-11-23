@@ -19,4 +19,6 @@ CREATE TABLE IF NOT EXISTS blocks (
     transaction_count BIGINT,
     transactions_root TEXT,
     CONSTRAINT unique_block UNIQUE(number)
-)
+);
+
+CREATE INDEX blocks_number ON blocks USING btree (number);

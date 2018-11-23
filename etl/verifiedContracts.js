@@ -16,7 +16,7 @@ writer = new Writer({
 //console.log(process.env.DAPPBOARD_NODE_URL)
 var eth = new Ethereum.Provider(Ethereum.ProviderType.WS, process.env.DAPPBOARD_NODE_URL);
 
-const verifiedContractListURL = 'https://etherscan.io/contractsVerified/2';
+const verifiedContractListURL = 'https://etherscan.io/contractsVerified/';
 const getJsonABIURL = "https://api.etherscan.io/api?module=contract&action=getabi&address="
 
 async function  getABIFromEtherscan(address) {
@@ -35,23 +35,26 @@ async function  getABIFromEtherscan(address) {
 
 
 async function scrapeVerifiedContracts() {
-  var html = await rp(verifiedContractListURL);
-  var $ = cheerio.load(html);
-  var tags = $('.address-tag').toArray();
-  for (tag of tags) {
-    abi = JSON.parse(await getABIFromEtherscan($(tag).text()));
-    for (abiElem of abi) {
-      if (abiElem.type == "event") {
-        console.log(abiElem)
-        var topic_0 = eth.w3.eth.abi.encodeEventSignature(abiElem);
-        var event = {
-          topic: topic_0,
-          name: abiElem.name,
+  for (var i = 0; i < 200; i++) {
+    var html = await rp(verifiedContractListURL + i);
+    var $ = cheerio.load(html);
+    var tags = $('.address-tag').toArray();
+    for (tag of tags) {
+      abi = JSON.parse(await getABIFromEtherscan($(tag).text()));
+      for (abiElem of abi) {
+        if (abiElem.type == "event") {
+          var topic_0 = eth.w3.eth.abi.encodeEventSignature(abiElem);
+          var event = {
+            topic: eth.normalizeHash(topic_0),
+            name: abiElem.name,
+            parameters: JSON.stringify(abiElem.inputs),
+          }
+          console.log(event)
+          writer.insert('meta_events', event);
         }
-        console.log(event)
       }
-    }
-  }
+    }  }
+
 
 }
 

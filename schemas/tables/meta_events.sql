@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS meta_events (
-    topic_0 TEXT,
+    topic TEXT,
     name TEXT,
-    parameters JSON
+    parameters JSON,
+    CONSTRAINT unique_meta_event UNIQUE(topic)
 )

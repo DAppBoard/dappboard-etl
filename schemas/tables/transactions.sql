@@ -17,4 +17,6 @@ CREATE TABLE IF NOT EXISTS transactions (
     contract_address TEXT,
     status BOOLEAN,
     CONSTRAINT unique_transaction UNIQUE(hash)
-)
+);
+
+CREATE INDEX transactions_hash ON transactions USING btree (hash);
