@@ -41,8 +41,8 @@ async function scrapeVerifiedContracts() {
     var $ = cheerio.load(html);
     var tags = $('.address-tag').toArray();
     for (tag of tags) {
-      var address = $(tag).text());
-      abi = JSON.parse(await getABIFromEtherscan(address);
+      var address = $(tag).text();
+      abi = JSON.parse(await getABIFromEtherscan(address));
       for (abiElem of abi) {
         if (abiElem.type == "event") {
           var topic_0 = eth.w3.eth.abi.encodeEventSignature(abiElem);

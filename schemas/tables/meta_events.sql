@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS meta_events (
     address TEXT,
     name TEXT,
     parameters JSON,
-    CONSTRAINT unique_meta_event UNIQUE(topic)
+    CONSTRAINT unique_meta_event UNIQUE(topic, address)
 );
 
 CREATE INDEX meta_events_topic ON meta_events USING btree (topic);
