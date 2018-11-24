@@ -42,7 +42,12 @@ async function scrapeVerifiedContracts() {
     var tags = $('.address-tag').toArray();
     for (tag of tags) {
       var address = $(tag).text();
-      abi = JSON.parse(await getABIFromEtherscan(address));
+      var abi = [];
+      try {
+        abi = JSON.parse(await getABIFromEtherscan(address));
+      } catch (error e) {
+
+      }
       for (abiElem of abi) {
         if (abiElem.type == "event") {
           var topic_0 = eth.w3.eth.abi.encodeEventSignature(abiElem);
