@@ -22,3 +22,5 @@ CREATE TABLE IF NOT EXISTS blocks (
 );
 
 CREATE INDEX blocks_number ON blocks USING btree (number);
+
+CREATE INDEX blocks_timestamp ON blocks USING btree (timestamp);

@@ -35,17 +35,20 @@ async function  getABIFromEtherscan(address) {
 
 
 async function scrapeVerifiedContracts() {
-  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i > 0; i++) {
+    console.log("Current Page", i)
     var html = await rp(verifiedContractListURL + i);
     var $ = cheerio.load(html);
     var tags = $('.address-tag').toArray();
     for (tag of tags) {
-      abi = JSON.parse(await getABIFromEtherscan($(tag).text()));
+      var address = $(tag).text());
+      abi = JSON.parse(await getABIFromEtherscan(address);
       for (abiElem of abi) {
         if (abiElem.type == "event") {
           var topic_0 = eth.w3.eth.abi.encodeEventSignature(abiElem);
           var event = {
             topic: eth.normalizeHash(topic_0),
+            address: eth.normalizeHash(address),
             name: abiElem.name,
             parameters: JSON.stringify(abiElem.inputs),
           }

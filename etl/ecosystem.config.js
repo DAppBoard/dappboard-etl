@@ -8,6 +8,11 @@ module.exports = {
     name: 'past',
     script: 'past.js',
     autorestart: true,
+  },
+  {
+    name: 'contracts',
+    script: 'verifiedContracts.js',
+    autorestart: true,
   }],
 
 };

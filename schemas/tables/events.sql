@@ -12,3 +12,5 @@ CREATE TABLE IF NOT EXISTS events (
     address TEXT,
     CONSTRAINT unique_event UNIQUE(transaction_hash, log_index)
 )
+
+CREATE INDEX events_topic ON events USING btree (topic_0);

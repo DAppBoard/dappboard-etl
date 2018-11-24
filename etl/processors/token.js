@@ -13,7 +13,7 @@ TokenProcessor.prototype.process = function(provider, block) {
       for (var j = 0; j < tx.logs.length; j++) {
         var ev = tx.logs[j];
         // We check if the event is an ERC20 token transfer
-        if (ev.topics[0].toLowerCase() == '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
+        if (ev.topics[0] != null && ev.topics[0].toLowerCase() == '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
           var obj = {
             token_address: provider.normalizeHash(ev.address),
             transaction_hash: provider.normalizeHash(ev.transactionHash),
