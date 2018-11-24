@@ -45,7 +45,7 @@ async function scrapeVerifiedContracts() {
       var abi = [];
       try {
         abi = JSON.parse(await getABIFromEtherscan(address));
-      } catch (error e) {
+      } catch (error) {
 
       }
       for (abiElem of abi) {
