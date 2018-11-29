@@ -14,3 +14,4 @@ CREATE TABLE IF NOT EXISTS events (
 )
 
 CREATE INDEX events_topic ON events USING btree (topic_0);
+CREATE INDEX events_address ON events USING btree (address);

@@ -19,7 +19,7 @@ var scrapMissingTokens = async function(eth, writer)  {
   var query = `
   SELECT token_transfers.token_address FROM token_transfers WHERE token_address NOT IN (
       SELECT tokens.address from tokens GROUP BY tokens.address
-  ) GROUP BY token_transfers.token_address ;
+  ) GROUP BY token_transfers.token_address;
   `;
   var missingContracts = await writer.executeAsync(query);
   for (var i = 0; i < missingContracts.length; i++) {
