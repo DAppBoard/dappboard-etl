@@ -7,7 +7,7 @@ For a given block, the block information, transactions and transaction receipts 
 
 ### How to run it?
 
-You will first need to [install the DAppBoard production environment](https://github.com/DAppBoard/dappboard-environment).
+You will first need to [install the DAppBoard  environment](https://github.com/DAppBoard/dappboard-environment).
 
 ```git clone https://github.com/DAppBoard/ethereum-etl.git &&
 cd ethereum-etl```
