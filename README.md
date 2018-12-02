@@ -9,8 +9,9 @@ For a given block, the block information, transactions and transaction receipts 
 
 You will first need to [install the DAppBoard  environment](https://github.com/DAppBoard/dappboard-environment).
 
-```git clone https://github.com/DAppBoard/ethereum-etl.git &&
-cd ethereum-etl```
+```
+git clone https://github.com/DAppBoard/ethereum-etl.git && cd ethereum-etl
+```
 
 TODO: How to populate the DB with schemas?
 
