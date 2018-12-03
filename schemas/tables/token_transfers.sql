@@ -8,3 +8,7 @@ CREATE TABLE IF NOT EXISTS token_transfers (
     block_number BIGINT,
     CONSTRAINT unique_token_transfer UNIQUE(transaction_hash, log_index)
 )
+
+CREATE INDEX tokens_transfers_address ON token_transfers USING btree (token_address);
+CREATE INDEX tokens_transfers_from ON token_transfers USING btree (from_address);
+CREATE INDEX tokens_transfers_to ON token_transfers USING btree (to_address);
