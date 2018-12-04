@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS blocks (
     sha3_uncles TEXT,
     size BIGINT,
     state_root TEXT,
-    timestamp BIGINT,
+    timestamp TIMESTAMP,
     total_difficulty DECIMAL(38,0),
     transaction_count BIGINT,
     transactions_root TEXT,
@@ -22,5 +22,4 @@ CREATE TABLE IF NOT EXISTS blocks (
 );
 
 CREATE INDEX blocks_number ON blocks USING btree (number);
-
 CREATE INDEX blocks_timestamp ON blocks USING btree (timestamp);

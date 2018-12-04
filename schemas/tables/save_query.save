@@ -1,0 +1,18 @@
+SELECT "tokens__via__token_address"."address" AS "token_address",
+"tokens__via__token_address"."name" AS "name",
+"tokens__via__token_address"."symbol" AS "symbol",
+"tokens__via__token_address"."decimals" AS "decimals",
+"tokens__via__token_address"."is_erc20" AS "is_erc20",
+"tokens__via__token_address"."is_erc721" AS "is_erc721",
+
+ count(*)  AS "transfer_count",
+  count(distinct "public"."token_transfers"."to_address") AS "receiver_count",
+  count(distinct "public"."token_transfers"."from_address") AS "sender_count",
+  sum("public"."token_transfers"."value") / 10 ^ COALESCE("tokens__via__token_address"."decimals", 0) AS "erc20_volume",
+    count(distinct "public"."token_transfers"."value") AS "erc721_unique_transferred"
+FROM "public"."token_transfers"
+LEFT JOIN "public"."blocks" "blocks__via__block_number" ON "public"."token_transfers"."block_number" = "blocks__via__block_number"."number" LEFT JOIN "public"."tokens" "tokens__via__token_address" ON "public"."token_transfers"."token_address" = "tokens__via__token_address"."address"
+WHERE CAST(to_timestamp("blocks__via__block_number"."timestamp") AS date) BETWEEN CAST((NOW() + INTERVAL '-14 day') AS date)
+   AND CAST((NOW() + INTERVAL '-1 day') AS date)
+GROUP BY "tokens__via__token_address"."address", "tokens__via__token_address"."name", "tokens__via__token_address"."symbol", "tokens__via__token_address"."decimals", "tokens__via__token_address"."is_erc721", "tokens__via__token_address"."is_erc20"
+ORDER BY "transfer_count" DESC, "tokens__via__token_address"."name" ASC

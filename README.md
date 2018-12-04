@@ -7,15 +7,7 @@ For a given block, the block information, transactions and transaction receipts 
 
 ### How to run it?
 
-You will first need to [install the DAppBoard  environment](https://github.com/DAppBoard/dappboard-environment).
-
-```
-git clone https://github.com/DAppBoard/ethereum-etl.git && cd ethereum-etl
-```
-
-TODO: How to populate the DB with schemas?
-
-TODO: Run the ecosystem files
+You are lost? [Check the documentation on how to run your own DAppBoard!](https://github.com/DAppBoard/dappboard-documentation)
 
 
 ### Schemas
