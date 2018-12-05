@@ -23,7 +23,7 @@ BlockProcessor.prototype.process = function(provider, block) {
     sha3_uncles: provider.normalizeHash(block.sha3Uncles),
     size: block.size,
     state_root: provider.normalizeHash(block.stateRoot),
-    timestamp: block.timestamp,
+    timestamp: (new Date(block.timestamp * 1000)).toUTCString(),
     total_difficulty: block.totalDifficulty,
     transaction_count: block.transactions.length,
     transactions_root: provider.normalizeHash(block.transactionsRoot),
