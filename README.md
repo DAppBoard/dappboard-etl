@@ -1,9 +1,9 @@
 # DAppBoard Ethereum ETL
 ETL pipeline for the Ethereum blockchain using NodeJS, EthereumJS and any Ethereum node providing RPC interface.
 
-### How does it works?
+### How does it work?
 
-For a given block, the block information, transactions and transaction receipts are fetched and processed by several processors which goal is to extract and structure informations such as events, ERC20 transfers, NFTs transfers and load them in a database.
+For a given block, the block information, transactions and transaction receipts are fetched and processed by several processors which goal is to extract and structure information such as events, ERC20 transfers, NFTs transfers and load them in a database.
 
 ### How to run it?
 
@@ -12,9 +12,9 @@ You are lost? [Check the documentation on how to run your own DAppBoard!](https:
 
 ### Schemas
 
-This ETL reads the blockchain block by blck in order to identify and save the following elements:
+This ETL reads the blockchain block by block in order to identify and save the following elements:
 
-- [Blocks](https://github.com/DAppBoard/ethereum-etl/blob/master/schemas/tables/blocks.sql): A block is the basic element of a 'blockchain'. It functions as an entry in a distributed ledger, recording a series of transactions together with a reference to the previous block. A block is chained to its preceeding block by a cryptographic hash of its contents as a means of reference.
+- [Blocks](https://github.com/DAppBoard/ethereum-etl/blob/master/schemas/tables/blocks.sql): A block is the basic element of a 'blockchain'. It functions as an entry in a distributed ledger, recording a series of transactions together with a reference to the previous block. A block is chained to its preceding block by a cryptographic hash of its contents as a means of reference.
 - [Transactions](https://github.com/DAppBoard/ethereum-etl/blob/master/schemas/tables/transactions.sql): Transactions are messages between two accounts that may transfer Ether and may contain a payload. Transactions always originate from an external account that is controlled by an external actor by means of a private key.
 - [Events](https://github.com/DAppBoard/ethereum-etl/blob/master/schemas/tables/events.sql): Events are structures implemented in smart contracts. They cannot be accessed from the contract but can be used from the outside, e.g. by a web application that reacts to Events in a smart contract.
 - [Token transfers](https://github.com/DAppBoard/ethereum-etl/blob/master/schemas/tables/token_transfers.sql): Event generated when a token is transferred between 2 addresses.
@@ -23,9 +23,9 @@ This ETL reads the blockchain block by blck in order to identify and save the fo
 
 ### Contributors
 
-This ETL is developped by the [DAppBoard](http://dappboard.com) team and is used there. We're glad to offer our technology to the public so anyone can understand how data are gathered and stored before being displayed.
+This ETL is developed by the [DAppBoard](http://dappboard.com) team and is used there. We're glad to offer our technology to the public so anyone can understand how data are gathered and stored before being displayed.
 
-We'd like to thanks [Blockchain ETL](https://github.com/blockchain-etl/ethereum-etl) that inspired us and helped us organize data in a easy to understand format and where tools can be used and developed across teams and projects.
+We'd like to thanks [Blockchain ETL](https://github.com/blockchain-etl/ethereum-etl) that inspired us and helped us organize data in an easy way to understand format and where tools can be used and developed across teams and projects.
 
 ### License
 
