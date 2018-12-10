@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS token_transfers (
     transaction_hash TEXT,
     log_index BIGINT,
     block_number BIGINT,
+    timestamp TIMESTAMP,
     CONSTRAINT unique_token_transfer UNIQUE(transaction_hash, log_index)
 );
 

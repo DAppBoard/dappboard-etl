@@ -22,6 +22,7 @@ EventProcessor.prototype.process = function(provider, block) {
           topic_3: ev.topics.length > 3 ? provider.normalizeHash(ev.topics[3]) : null,
           transaction_hash: provider.normalizeHash(ev.transactionHash),
           transaction_index: ev.transactionIndex,
+          timestamp: (new Date(block.timestamp * 1000)).toUTCString(),
           address: provider.normalizeHash(ev.address),
         };
         this.writer.insert(this.type, obj);

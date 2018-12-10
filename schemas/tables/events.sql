@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS events (
     transaction_hash TEXT,
     transaction_index BIGINT,
     address TEXT,
+    timestamp TIMESTAMP,
     CONSTRAINT unique_event UNIQUE(transaction_hash, log_index)
 );
 

@@ -18,6 +18,7 @@ TokenProcessor.prototype.process = function(provider, block) {
             token_address: provider.normalizeHash(ev.address),
             transaction_hash: provider.normalizeHash(ev.transactionHash),
             log_index: ev.logIndex,
+            timestamp: (new Date(block.timestamp * 1000)).toUTCString(),
             block_number: ev.blockNumber,
           };
           var dataRead = 0;
