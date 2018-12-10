@@ -16,7 +16,9 @@ CREATE TABLE IF NOT EXISTS transactions (
     gas_used BIGINT,
     contract_address TEXT,
     status BOOLEAN,
+    timestamp TIMESTAMP,
     CONSTRAINT unique_transaction UNIQUE(hash)
 );
 
 CREATE INDEX transactions_hash ON transactions USING btree (hash);
+CREATE INDEX transactions_timestamp ON transactions USING btree (timestamp);

@@ -13,4 +13,4 @@ CREATE TABLE IF NOT EXISTS token_transfers (
 CREATE INDEX tokens_transfers_address ON token_transfers USING btree (token_address);
 CREATE INDEX tokens_transfers_from ON token_transfers USING btree (from_address);
 CREATE INDEX tokens_transfers_to ON token_transfers USING btree (to_address);
-CREATE INDEX tokens_transfers_timestamp ON blocks USING btree (timestamp);
+CREATE INDEX tokens_transfers_timestamp ON token_transfers USING btree (timestamp);

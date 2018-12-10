@@ -23,6 +23,7 @@ TransactionProcessor.prototype.process = function(provider, block) {
       transaction_index: tx.transactionIndex,
       value: tx.value,
       cumulative_gas_used: tx.cumulativeGasUsed,
+      timestamp: (new Date(block.timestamp * 1000)).toUTCString(),
       contract_address: tx.contractAddress,
       gas_used: tx.gasUsed,
       status: tx.status
