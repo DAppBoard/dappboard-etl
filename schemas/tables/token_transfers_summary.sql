@@ -8,8 +8,11 @@ SUM(token_transfers_daily.transfers) AS transfers,
 json_agg(json_build_object('day', day::date, 'volume', erc20_volume / 10 ^ decimals, 'transfers', transfers)) AS item
  FROM tokens
  JOIN token_transfers_daily ON address = token_address
-GROUP BY address, name, symbol, decimals, is_erc20, is_erc721
-WITH NO DATA;
+   WHERE "timestamp" > NOW() - INTERVAL '7 day'
 
+GROUP BY address, name, symbol, decimals, is_erc20, is_erc721
+WHERE "day" > NOW() - INTERVAL '7 day'
+
+WITH NO DATA;
 
 REFRESH MATERIALIZED VIEW token_transfers_summary;
