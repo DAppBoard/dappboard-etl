@@ -3,7 +3,7 @@ SELECT address, name, symbol, decimals, is_erc20, is_erc721,
 COALESCE(SUM(token_transfers_daily.transfers) FILTER (WHERE "day" > CURRENT_DATE - INTERVAL '1 day'), 0) AS transfers_today,
 COALESCE(SUM(token_transfers_daily.receivers) FILTER (WHERE "day" > CURRENT_DATE - INTERVAL '1 day'), 0) AS receivers_today,
 COALESCE(SUM(token_transfers_daily.senders) FILTER (WHERE "day" > CURRENT_DATE - INTERVAL '1 day'), 0) AS senders_today,
-SUM(token_transfers_daily.transfers / 10 ^ decimals) AS transfers,
+COALESCE(SUM(token_transfers_daily.transfers), 0) AS transfers,
 
 json_agg(json_build_object('day', day::date, 'volume', erc20_volume, 'transfers', transfers)) AS item
  FROM tokens
