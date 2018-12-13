@@ -12,5 +12,6 @@ SELECT date_trunc('day', "timestamp") "day",
  GROUP BY day, token_address ORDER BY "day" DESC  WITH NO DATA;
 
  CREATE INDEX token_transfers_daily_day ON token_transfers_daily (day);
+ CREATE INDEX token_transfers_token_address ON token_transfers_daily (token_address);
 
  REFRESH MATERIALIZED VIEW token_transfers_daily ;
