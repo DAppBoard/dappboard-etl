@@ -1,3 +1,4 @@
+
 CREATE MATERIALIZED VIEW token_transfers_daily AS
 SELECT date_trunc('day', "timestamp") "day",
  token_address,
@@ -7,8 +8,8 @@ SELECT date_trunc('day', "timestamp") "day",
  COUNT(DISTINCT(value)) AS nft_distincts,
  SUM(value / 10 ^ decimals) AS erc20_volume,
  AVG(value / 10 ^ decimals) AS erc20_average,
- MAX(value / 10 ^ decimals) AS erc20_maximum,
- FROM token_transfers, tokens
+ MAX(value / 10 ^ decimals) AS erc20_maximum
+ FROM token_transfers
  JOIN tokens ON address = token_address
  GROUP BY day, token_address ORDER BY "day" DESC  WITH NO DATA;
 
