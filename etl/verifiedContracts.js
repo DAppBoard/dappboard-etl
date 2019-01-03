@@ -53,7 +53,6 @@ async function scrapeVerifiedContracts() {
           var topic_0 = eth.w3.eth.abi.encodeEventSignature(abiElem);
           var event = {
             topic: eth.normalizeHash(topic_0),
-            address: eth.normalizeHash(address),
             name: abiElem.name,
             parameters: JSON.stringify(abiElem.inputs),
           }
