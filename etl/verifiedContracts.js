@@ -51,7 +51,6 @@ async function scrapeVerifiedContracts() {
       for (abiElem of abi) {
         if (abiElem.type == "event") {
           var topic_0 = eth.w3.eth.abi.encodeEventSignature(abiElem);
-          console.log(event)
           writer.insert('meta_events', {
             topic: eth.normalizeHash(topic_0),
             name: abiElem.name,
