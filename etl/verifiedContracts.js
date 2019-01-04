@@ -35,7 +35,7 @@ async function  getABIFromEtherscan(address) {
 
 
 async function scrapeVerifiedContracts() {
-  for (var i = 0; i >= 0; i++) {
+  for (var i = 2176; i >= 0; i--) {
     console.log("Current Page", i)
     var html = await rp(verifiedContractListURL + i);
     var $ = cheerio.load(html);
