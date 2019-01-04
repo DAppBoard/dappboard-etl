@@ -35,7 +35,7 @@ async function  getABIFromEtherscan(address) {
 
 
 async function scrapeVerifiedContracts() {
-  for (var i = 0; i >= 0; i++) {
+  for (var i = 350; i >= 0; i++) {
     console.log("Current Page", i)
     var html = await rp(verifiedContractListURL + i);
     var $ = cheerio.load(html);
@@ -51,13 +51,12 @@ async function scrapeVerifiedContracts() {
       for (abiElem of abi) {
         if (abiElem.type == "event") {
           var topic_0 = eth.w3.eth.abi.encodeEventSignature(abiElem);
-          var event = {
+          console.log(event)
+          writer.insert('meta_events', {
             topic: eth.normalizeHash(topic_0),
             name: abiElem.name,
             parameters: JSON.stringify(abiElem.inputs),
-          }
-          console.log(event)
-          writer.insert('meta_events', event);
+          });
         }
       }
     }  }
