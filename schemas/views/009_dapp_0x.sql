@@ -1,4 +1,6 @@
+CREATE VIEW dapp_0x AS
 SELECT timestamp,
+block_number,
 transaction_hash,
  (SUBSTRING("data", 25, 40))AS "taker" ,
  SUBSTRING("topic_1", 25, 40) AS maker,
@@ -14,4 +16,4 @@ transaction_hash,
  WHERE topic_0 = '0bcc4c97732e47d9946f229edb95f5b6323f601300e4690de719993f3c371129' AND address = '4f833a24e1f95d70f028921e27040ca56e09ab0b'
  AND SUBSTRING("data", 577, 8) = 'f47261b0'
 
-  LIMIT 100
+ORDER BY timestamp DESC
