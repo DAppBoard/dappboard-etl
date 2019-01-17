@@ -14,6 +14,5 @@ WITH DATA;
 CREATE UNIQUE INDEX token_transfers_token_address ON token_transfers_summary(address);
 
 
-REFRESH MATERIALIZED VIEW token_transfers_summary;
 
 REFRESH MATERIALIZED VIEW CONCURRENTLY token_transfers_summary;

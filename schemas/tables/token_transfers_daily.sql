@@ -13,7 +13,7 @@ SELECT date_trunc('day', "timestamp") "day",
  JOIN tokens ON address = token_address
  GROUP BY day, token_address ORDER BY "day" DESC  WITH NO DATA;
 
- CREATE INDEX token_transfers_token_address ON token_transfers_daily (token_address);
+ CREATE UNIQUE INDEX token_transfers_token_address_day ON token_transfers_daily (token_address, day);
 
  REFRESH MATERIALIZED VIEW token_transfers_daily ;
 
