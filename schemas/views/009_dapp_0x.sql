@@ -5,8 +5,8 @@ transaction_hash,
   (SUBSTRING("data", 89, 40))AS "relayer" ,
   hex2dec(SUBSTRING("data", 153, 40))::numeric AS "maker_token_amount" ,
   hex2dec(SUBSTRING("data", 217, 40))::NUMERIC AS "taker_token_amount" ,
-  hex2dec(SUBSTRING("data", 153, 40))::NUMERIC AS "maker_fee_amount" ,
-  hex2dec(SUBSTRING("data", 217, 40))::NUMERIC AS "taker_fee_amount" ,
+  hex2dec(SUBSTRING("data", 281, 40))::NUMERIC AS "maker_fee_amount" ,
+  hex2dec(SUBSTRING("data", 345, 40))::NUMERIC AS "taker_fee_amount" ,
   (SUBSTRING("data", 609, 40))AS "maker_token" ,
   (SUBSTRING("data", 801, 40))AS "taker_token"
 
