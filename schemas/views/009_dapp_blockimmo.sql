@@ -5,8 +5,8 @@ block_number,
 transaction_hash,
  (SUBSTRING("data", 25, 40))AS "taker" ,
  data,
-  hex2dec(SUBSTRING("data", 25, 40))::numeric AS "value" ,
-    hex2dec(SUBSTRING("data", 90, 40))::numeric AS "amount" ,
+  hex2dec(SUBSTRING("data", 25, 40))::numeric / 1000000000000000000 AS "value" ,
+    hex2dec(SUBSTRING("data", 90, 40))::numeric / 1000000000000000000 AS "amount" ,
 
   (SUBSTRING("topic_1", 25, 40)) AS "purchaser" ,
     (SUBSTRING("topic_2", 26, 40)) AS "benficiary"
