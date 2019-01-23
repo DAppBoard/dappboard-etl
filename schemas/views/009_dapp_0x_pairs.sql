@@ -5,4 +5,4 @@ COUNT(*) as count_of_trades, ftoken.name as fname, stoken.name as sname,  ftoken
      LEFT JOIN tokens ftoken ON GREATEST(maker_token, taker_token)=ftoken.address
      LEFT JOIN tokens stoken ON LEAST(maker_token, taker_token)=stoken.address
      WHERE "timestamp" > NOW() - INTERVAL '7 day'
-  GROUP BY  ftoken.name, stoken.name, ftoken.symbol, stoken.symbol, ftoken.address, stoken.address ORDER BY count_of_trades DESC LIMIT 1000
+  GROUP BY  ftoken.name, stoken.name, ftoken.symbol, stoken.symbol, ftoken.address, stoken.address ORDER BY count_of_trades DESC
