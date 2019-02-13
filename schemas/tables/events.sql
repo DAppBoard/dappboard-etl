@@ -17,3 +17,5 @@ CREATE TABLE IF NOT EXISTS events (
 CREATE INDEX events_topic ON events USING btree (topic_0);
 CREATE INDEX events_address ON events USING btree (address);
 CREATE INDEX events_timestamp ON events USING btree (timestamp);
+
+CREATE INDEX events_topic_address_timestamp ON events (topic_0, address, timestamp);
